@@ -1,4 +1,6 @@
+require 'json'
 module MetaMethods
+    
     def find_item_by_id(id)
         self.where(["id = #{id}"])
     end
@@ -22,6 +24,16 @@ module MetaMethods
         fks = self.find_fk
         
         col_in_table = fks.map!{|fk| fk.split('_').last }
-        return col_in_table        
+        col_in_table        
     end
+
+
+    def generate_meta_json
+
+   
+        db_hash = {:db_name => "TEST" , :fks=> self.find_fk , :fk_table => self.fks_table}
+        p db_hash[:fks]
+    end
+
+
 end

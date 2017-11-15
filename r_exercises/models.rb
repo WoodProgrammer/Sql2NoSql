@@ -27,7 +27,4 @@ class Course < ActiveRecord::Base
 
 end
 
-fk_cols = User.find_fk
-
-datas = User.all()
-cols = User.column_names
+Course.generate_meta_json
