@@ -1,6 +1,6 @@
 require 'json'
 module MetaMethods
-    
+    @db_has = {}
     def find_item_by_id(id)
         self.where(["id = #{id}"])
     end
@@ -29,11 +29,9 @@ module MetaMethods
 
 
     def generate_meta_json
-
-   
-        db_hash = {:db_name => "TEST" , :fks=> self.find_fk , :fk_table => self.fks_table}
-        p db_hash[:fks]
+        db_hash = {:main_table_name =>self.name , :fks=> self.find_fk , :fk_table => self.fks_table}
+        return db_hash
     end
-
-
+    
+ 
 end
