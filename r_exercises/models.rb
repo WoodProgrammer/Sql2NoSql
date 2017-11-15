@@ -8,9 +8,9 @@ arguments = ARGV
 @connection = ActiveRecord::Base.establish_connection(
     :adapter => "mysql2",
     :host => "localhost",
-    :database => "DATABASENAME",
+    :database => "tool_test2",
     :user => "root",
-    :password => "PASSWD"
+    :password => "abcde"
 )
 ActiveRecord::Base.pluralize_table_names = false
 
@@ -26,10 +26,23 @@ module MetaMethods
 
         column_datas = self.column_names 
         foreign_key_columns = column_datas.select{|c_data| c_data.match(/_id$/)}
-        
         foreign_key_columns
+    end
 
+    def fks_table
+        fks = self.find_fk
+        
+        table_names = fks.map!{|fk| fk.split('_').first }
+        return table_names 
+       
+    end
 
+    def fks_cols
+        fks = self.find_fk
+        
+        col_in_table = fks.map!{|fk| fk.split('_').last }
+        return col_in_table 
+       
     end
 
 
@@ -44,24 +57,15 @@ class Course < ActiveRecord::Base
     extend MetaMethods
 end
 
+p User.fks_table
+p User.fks_cols
 
 
 
-p User.find_fk
 
 
 
 
-#my_col = "name"
-
-#x = MongoClient.new("test")
-#user_datas = User.all
-
-#user_datas.each do |u_data|
- #   data = Course.find_item_by_id(u_data.course)
-  #  @doc = { :name => u_data.name, :course_name =>data[0]["#{my_col}"] } 
-   # x.insert_doc @doc
-#end
 
 
 
