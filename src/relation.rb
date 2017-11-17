@@ -1,7 +1,6 @@
 require 'rubygems'
 require 'active_record'
 require 'json'
-require './mongo_class'
 
 arguments = ARGV
 
@@ -13,3 +12,5 @@ arguments = ARGV
     :password => "abcde"
 )
 @connection.get_tables
+
+###class generators.

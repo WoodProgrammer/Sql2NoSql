@@ -1,8 +1,8 @@
 require 'rubygems'
 require 'active_record'
 require 'json'
-require './mongo_class'
-require './meta_datas'
+#require './mongo_class'
+#require './meta_datas'
 
 mongo_cli = MongoClient.new("kurs_data")
 
