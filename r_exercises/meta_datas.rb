@@ -1,6 +1,7 @@
 require 'json'
+require_relative 'mongo_class'
 module MetaMethods
-   
+    
     def find_item_by_id(id)
         self.where(["id = #{id}"])
     end
@@ -27,9 +28,13 @@ module MetaMethods
         table_hash
     end
     
-#{"course_id"=>{"table"=>"course", "col_name"=>"id","equavalent_data"=>"name"}, "class_id"=>{"table"=>"class", "col_name"=>"id","equavalent_data"=>"name"}}
     def push_mongo  
-        test_arr = []
+        
+        mongo_obj = MongoClient.new(self.connection.current_database) 
+
+        
+        test_bson = {}
+
         datas = self.all
         tmp_data = self.generate_table_json
         cols = self.column_names
@@ -47,29 +52,27 @@ module MetaMethods
                         x.delete("id")
 
                         tmp_datas = tmp_col[0].capitalize.constantize.find(data[col]).to_json
-                        tmp_datas
-                    
-                        test_arr.push(tmp_datas)
+
+                        
+                        test_bson["#{col}".delete("_id")] = tmp_datas
+
                     rescue
 
                     end
-                else    
-                
-                    tmp_datas = self.find(data.id).to_json
-                    tmp_datas
-                    test_arr.push(tmp_datas)
+                else  
+                    
+                    test_bson["#{col}"] = data["#{col}"]
+                    
                 end
             end
-            p test_arr
-            test_arr = []
+
+            mongo_obj.insert_doc(self.table_name,test_bson)
+            
         end
 
-
-
-
         
-    
-    
+       
+
     end
 
 

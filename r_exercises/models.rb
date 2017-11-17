@@ -19,6 +19,8 @@ main_json = {}
 
 
 
+
+
 class User < ActiveRecord::Base
     
     extend MetaMethods
@@ -30,8 +32,3 @@ class Course < ActiveRecord::Base
 
 end 
 
-
-
-
-x = User.push_mongo
-p x

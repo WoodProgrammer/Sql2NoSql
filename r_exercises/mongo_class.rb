@@ -12,8 +12,8 @@ class MongoClient
   end
 
 
-  def insert_doc doc
-    @client[:cars].insert_one doc
+  def insert_doc(col,doc)
+    @client[col].insert_one doc
 
   end
   
@@ -22,3 +22,4 @@ class MongoClient
   end
 
 end
+
