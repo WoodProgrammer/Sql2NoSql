@@ -1,4 +1,7 @@
 # SQL2NOSQL
-database migrator and transporter.
-Attention your database columns names .
+ 
 
+## TO-DO List 
+  * Log Messagign
+  * Mongo Sharding
+  * Switch-Network
