@@ -19,19 +19,20 @@ def machine_logger():
             data = cli.containers.get(container.id).exec_run(cmd="df --output=pcent /data/db ")      
             disk_usage_data = re.findall("\d+",data)
             print disk_usage_data[0]
-            
-            if int(disk_usage_data[0]) >= 77:
-                flag = 0
-                print "WARNIN Disk usage  :    {}".format(disk_usage_data[0])
-                print "New Container Creating ..... "
-            else:
-                print "Disk usage {}".format(disk_usage_data)
-                
+            try:
+                if int(disk_usage_data[0]) >= 77:
+                    flag = 0
+                    print "WARNIN Disk usage  {} :    {}".format(container.id,disk_usage_data[0])
+                    print "New Container Creating ..... "
+                else:
+                    print "Disk usage of {} {}".format(container.id,disk_usage_data)
+            except:
+
+                print "Disk usage data cannot reachable {}".format(container.id)    
             time.sleep(1)
 
-machine_logger()
 
-'''
+
 
 
 def create_container():
@@ -58,4 +59,3 @@ def config_listener():
 
 threading.Thread(target=machine_logger,args=()).start()
 config_listener()
-'''
